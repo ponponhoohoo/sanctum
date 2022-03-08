@@ -192,7 +192,7 @@ export default {
         formData.append('content',this.forms.content);
         formData.append('category',this.forms.category);
         formData.append('path',this.path);
-console.log(...formData.entries());
+//console.log(...formData.entries());
         let config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -200,7 +200,7 @@ console.log(...formData.entries());
         };
 
         // 送信処理
-        axios.post('/api/article/store/', formData,config)
+        axios.post('/api/article/store', formData,config)
         .then((res) => {
           let response = res.data;
           console.log(response)
