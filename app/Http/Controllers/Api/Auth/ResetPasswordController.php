@@ -33,16 +33,14 @@ class ResetPasswordController extends Controller
 
     public function resetPassword($token = null,Request $request)
     {
-        // if ( app()->isLocal() || app()->runningUnitTests() ) { // .env に APP_ENV=local (ローカル環境) または APP_ENV=testing (テスト環境) と書いてある場合
-        //     // テスト環境, ローカル環境用の記述
-        //     $baseUrl = "http://127.0.0.1:8000/";
-        // }
-        // else { // .env に APP_ENV=production (本番環境) などと書いてあった場合
-        //     // 本番環境用の記述
-        //     $baseUrl = "http://photohamano.herokuapp.com/";
-        // }
-
-        $baseUrl = "http://photohamano.herokuapp.com/";
+        if ( app()->isLocal() || app()->runningUnitTests() ) { // .env に APP_ENV=local (ローカル環境) または APP_ENV=testing (テスト環境) と書いてある場合
+            // テスト環境, ローカル環境用の記述
+            $baseUrl = "http://127.0.0.1:8000/";
+        }
+        else { // .env に APP_ENV=production (本番環境) などと書いてあった場合
+            // 本番環境用の記述
+            $baseUrl = "http://photohamano.herokuapp.com/";
+        }
         
         // トークンがあるかチェック
         $isNotFoundResetPassword = PasswordReset::where('email', $request->input('email'))->doesntExist();

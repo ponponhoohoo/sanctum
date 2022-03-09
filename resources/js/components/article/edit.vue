@@ -144,7 +144,7 @@ export default {
     methods: {
         getArticle(article_id) {
         axios
-          .get("/api/article/" + article_id)
+          .get("/api/article" + article_id)
           .then(response => {
               this.forms = response.data;
               this.forms.category = this.forms.category.id;

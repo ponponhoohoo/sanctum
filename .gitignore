@@ -15,3 +15,4 @@ yarn-error.log
 /.vscode
 - コピー.env
 - コピー (2).env
+/app/Http/Controllers/Api/Auth/ResetPasswordController.php

@@ -97,7 +97,7 @@ export default {
         formData.append('confirmed',this.forms.confirmed);
         formData.append('token',this.token);
 
-        axios.post('/api/password/reset/', formData)
+        axios.post('/api/password/reset', formData)
         .then((res) => {
           let response = res.data;
           console.log(response)
