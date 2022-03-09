@@ -5855,18 +5855,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Side__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Side */ "./resources/js/components/Side.vue");
 /* harmony import */ var _SubHeader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../SubHeader */ "./resources/js/components/SubHeader.vue");
 /* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Footer */ "./resources/js/components/Footer.vue");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 //
 //
 //
@@ -6046,8 +6034,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     send: function send() {
-      var _this3 = this,
-          _console;
+      var _this3 = this;
 
       // 全てのエラーをリセット
       // Obj型式をループする際はこれを使用する
@@ -6062,9 +6049,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       formData.append('title', this.forms.title);
       formData.append('content', this.forms.content);
       formData.append('category', this.forms.category);
-      formData.append('path', this.path);
-
-      (_console = console).log.apply(_console, _toConsumableArray(formData.entries()));
+      formData.append('path', this.path); //console.log(...formData.entries());
 
       var config = {
         headers: {
@@ -6072,7 +6057,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       }; // 送信処理
 
-      axios.post('/api/article/store/', formData, config).then(function (res) {
+      axios.post('/api/article/store', formData, config).then(function (res) {
         var response = res.data;
         console.log(response); //console.log(response);
 
@@ -6258,13 +6243,12 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('user_id', this.id);
       formData.append('content', this.forms.content); // 送信処理axios.post('/api/article/add/', formData,config)
 
-      axios.post('/api/comment/store/', formData).then(function (res) {
+      axios.post('/api/comment/store', formData).then(function (res) {
         var response = res.data;
         console.log(response);
 
         if (response.status == 400) {
           // バリデーションエラー
-          console.log("emit-3333");
           _this.error_flg = true;
           Object.keys(response.errors).forEach(function (key) {
             _this.errors[key] = true;
@@ -6843,7 +6827,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('password', this.forms.password);
       formData.append('confirmed', this.forms.confirmed);
       formData.append('token', this.token);
-      axios.post('/api/password/reset/', formData).then(function (res) {
+      axios.post('/api/password/reset', formData).then(function (res) {
         var response = res.data;
         console.log(response); //console.log(response);
 

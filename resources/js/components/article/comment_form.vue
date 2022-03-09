@@ -70,13 +70,12 @@ export default {
         formData.append('content',this.forms.content);
 
         // 送信処理axios.post('/api/article/add/', formData,config)
-        axios.post('/api/comment/store/', formData)
+        axios.post('/api/comment/store', formData)
         .then((res) => {
           let response = res.data;
           console.log(response);
           if (response.status == 400) {
             // バリデーションエラー
-             console.log("emit-3333");
             this.error_flg = true;
             Object.keys(response.errors).forEach((key) => {
               this.errors[key] = true;
