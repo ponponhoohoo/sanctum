@@ -11,9 +11,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use \Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegisterMail;
 
 class RegisterController extends Controller
 {
+    
     public function register(Request $request)
     {
         /** @var Illuminate\Validation\Validator $validator */
@@ -35,12 +38,16 @@ class RegisterController extends Controller
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        User::create([
+        $User = new User();
+
+        $user = $User->create([
             'name' =>  $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        Mail::to($user->email)->send(new RegisterMail($user->name,$user->email));
+        
         return response()->json('User registration completed', Response::HTTP_OK);
 
     }

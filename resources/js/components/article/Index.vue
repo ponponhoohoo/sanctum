@@ -31,7 +31,10 @@
               <ul class="list">
                 <li class="list_item" v-for="item in getItems">
                   <figure v-if = "item.image !== null" class="responsive-image">
-                      <router-link :to="{ name: 'Detail', params: {id: item.id } }"><img :src="'/storage/upload/' + item.image.path"></router-link>
+                      <router-link :to="{ name: 'Detail', params: {id: item.id } }">
+                        <img :src="'/storage/upload/' + item.image.path" v-if="env === 'local'">
+                        <img v-else :src="item.image.path">
+                        </router-link>
                   </figure>
                   <figure class="responsive-image" v-else><router-link :to="{ name: 'Detail', params: {id: item.id } }"><img :src="'/storage/upload/noimg.jpg'"></router-link></figure>
 
@@ -96,6 +99,7 @@ export default {
   },
   data() {
      return {
+       env: this.$env, 
        search: {
           content: "",
           category: "",

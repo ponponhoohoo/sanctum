@@ -15,6 +15,9 @@
 
  import store from './store.js'
 
+ Vue.prototype.$env = 'local';
+ //Vue.prototype.$env = 'production';
+
  const app = new Vue({
      el: '#app',
      store,

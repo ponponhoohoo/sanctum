@@ -36,7 +36,8 @@
                         <input @change="fileSelect" type="file" v-if="view" class="file">
 
                         <figure v-if = "forms.image">
-                          <img :src="'/storage/upload/' + forms.image.path">
+                          <img :src="'/storage/upload/' + forms.image.path" v-if="env === 'local'">
+                          <img v-else :src="forms.image.path">
                           <input type="hidden" v-model="forms.path_original">
                         </figure>
 
@@ -98,6 +99,7 @@ export default {
   },
   data() {
       return {
+        env: this.$env, 
         view: true,
         title:"",
         content:"",

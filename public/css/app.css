@@ -582,6 +582,13 @@ input[type=radio], input[type=checkbox] {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+.content .main .container .list:before {
+  content: "";
+  display: block;
+  width: 32%;
+  height: 0;
+  order: 1;
+}
 
 .content .main .container .list .list_item {
   width: 32%;

@@ -12,7 +12,8 @@
 				      <h2 class="ttl">{{articles.title}}</h2>
               <div class="detail">
                 <figure v-if = "articles.image" class="image">
-                  <img :src="'/storage/upload/' + articles.image.path">
+                  <img :src="'/storage/upload/' + articles.image.path" v-if="env === 'local'">
+                  <img v-else :src="articles.image.path">
                 </figure>
                 <figure class="image" v-else><img :src="'/storage/upload/noimg.jpg'"></figure>
                   <figcaption>
@@ -71,6 +72,7 @@ export default {
   },
   data() {
      return {
+        env: this.$env, 
         articles:[],
         users:[],
         categories:[],

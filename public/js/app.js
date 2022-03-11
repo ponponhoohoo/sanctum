@@ -5705,6 +5705,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -5721,6 +5724,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      env: this.$env,
       search: {
         content: "",
         category: ""
@@ -6356,6 +6360,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -6374,6 +6379,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      env: this.$env,
       articles: [],
       users: [],
       categories: [],
@@ -6537,6 +6543,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -6551,6 +6558,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      env: this.$env,
       view: true,
       title: "",
       content: "",
@@ -7288,6 +7296,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$env = 'local'; //Vue.prototype.$env = 'production';
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_3__["default"]({
   el: '#app',
@@ -32522,13 +32532,17 @@ var render = function () {
                                       },
                                     },
                                     [
-                                      _c("img", {
-                                        attrs: {
-                                          src:
-                                            "/storage/upload/" +
-                                            item.image.path,
-                                        },
-                                      }),
+                                      _vm.env === "local"
+                                        ? _c("img", {
+                                            attrs: {
+                                              src:
+                                                "/storage/upload/" +
+                                                item.image.path,
+                                            },
+                                          })
+                                        : _c("img", {
+                                            attrs: { src: item.image.path },
+                                          }),
                                     ]
                                   ),
                                 ],
@@ -33266,12 +33280,17 @@ var render = function () {
                     [
                       _vm.articles.image
                         ? _c("figure", { staticClass: "image" }, [
-                            _c("img", {
-                              attrs: {
-                                src:
-                                  "/storage/upload/" + _vm.articles.image.path,
-                              },
-                            }),
+                            _vm.env === "local"
+                              ? _c("img", {
+                                  attrs: {
+                                    src:
+                                      "/storage/upload/" +
+                                      _vm.articles.image.path,
+                                  },
+                                })
+                              : _c("img", {
+                                  attrs: { src: _vm.articles.image.path },
+                                }),
                           ])
                         : _c("figure", { staticClass: "image" }, [
                             _c("img", {
@@ -33553,13 +33572,17 @@ var render = function () {
                               _vm._v(" "),
                               _vm.forms.image
                                 ? _c("figure", [
-                                    _c("img", {
-                                      attrs: {
-                                        src:
-                                          "/storage/upload/" +
-                                          _vm.forms.image.path,
-                                      },
-                                    }),
+                                    _vm.env === "local"
+                                      ? _c("img", {
+                                          attrs: {
+                                            src:
+                                              "/storage/upload/" +
+                                              _vm.forms.image.path,
+                                          },
+                                        })
+                                      : _c("img", {
+                                          attrs: { src: _vm.forms.image.path },
+                                        }),
                                     _vm._v(" "),
                                     _c("input", {
                                       directives: [

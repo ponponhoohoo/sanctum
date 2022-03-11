@@ -78,10 +78,18 @@ class ArticleController extends Controller
             \DB::beginTransaction();
 
             if ($file = $request->path) {
-                $File_Original = time() . $file->getClientOriginalName();
-                $Unique_Id  = uniqid();
-                $FileName = $Unique_Id . '_' . $File_Original;
-                $img = $request->path->storeAs('public/upload',$FileName); 
+                if (app()->isLocal()) {
+                    $File_Original = time() . $file->getClientOriginalName();
+                    $Unique_Id  = uniqid();
+                    $FileName = $Unique_Id . '_' . $File_Original;
+                    $img = $request->path->storeAs('public/upload',$FileName);
+                    
+                }
+                if (app()->isProduction()) {
+                    // 本番環境の場合の処理
+                    $path = Storage::disk('s3')->putFile('upload', $file);
+                    $FileName = Storage::disk('s3')->url($path);
+                }
             } 
     
             $article->user_id = $data['id'];
@@ -163,15 +171,31 @@ class ArticleController extends Controller
             \DB::beginTransaction();
 
             if ($file = $request->path) {
-                $File_Original = time() . $file->getClientOriginalName();
-                $Unique_Id  = uniqid();
-                $FileName = $Unique_Id . '_' . $File_Original;
-                $img = $request->path->storeAs('public/upload',$FileName);
+                //ローカル
+                if (app()->isLocal()) {
+                    $File_Original = time() . $file->getClientOriginalName();
+                    $Unique_Id  = uniqid();
+                    $FileName = $Unique_Id . '_' . $File_Original;
+                    $img = $request->path->storeAs('public/upload',$FileName);
 
-                //前の画像を削除
-                $PreFileName = $data['path_original'];
-                if (Storage::exists('public/upload/'. $PreFileName)) {
-                    Storage::disk('public')->delete('upload/' . $PreFileName);
+                    //前の画像を削除
+                    $PreFileName = $data['path_original'];
+                    if (Storage::exists('public/upload/'. $PreFileName)) {
+                        Storage::disk('public')->delete('upload/' . $PreFileName);
+                    }
+                }
+                //本番環境
+                if (app()->isProduction()) {
+                    $path = Storage::disk('s3')->putFile('upload', $file);
+                    $FileName = Storage::disk('s3')->url($path);
+
+                    //前の画像を削除
+                    $PreFileName = $data['path_original'];
+                    if ($PreFileName != "" && !empty($PreFileName)) {
+                        $S3DelFile = basename($PreFileName);
+                        $disk = Storage::disk('s3');
+                        $disk->delete('upload/' . $S3DelFile);
+                    }
                 }
 
                 // //image DB更新

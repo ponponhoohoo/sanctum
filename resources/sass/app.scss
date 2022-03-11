@@ -537,6 +537,13 @@ elements reset
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    &:before{
+      content:"";
+      display:block;
+      width: 32%;
+      height:0;
+      order:1;
+    }
   }
   .content .main .container .list .list_item {
     width: 32%;
