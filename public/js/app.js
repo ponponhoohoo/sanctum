@@ -5314,6 +5314,187 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GetLikeCnt.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GetLikeCnt.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "GetLikeCnt",
+  props: ["article_id", "id"],
+  setup: function setup(props) {
+    console.log(props.article_id);
+    console.log(props.id);
+  },
+  data: function data() {
+    return {
+      LikeCnt: "",
+      ActiveFlg: false
+    };
+  },
+  computed: {
+    Cnt: function (_Cnt) {
+      function Cnt() {
+        return _Cnt.apply(this, arguments);
+      }
+
+      Cnt.toString = function () {
+        return _Cnt.toString();
+      };
+
+      return Cnt;
+    }(function () {
+      return Cnt;
+    })
+  },
+  mounted: function mounted() {
+    this.getLike(this.article_id);
+    this.CheckActiveLike(this.id, this.article_id);
+  },
+  created: function created() {},
+  methods: {
+    getLike: function () {
+      var _getLike = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(article_id) {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get('/api/like/' + article_id).then(function (response) {
+                  this.LikeCnt = response.data;
+                  console.log(this.LikeCnt);
+                }.bind(this)) //Promise処理を行う場合は.bind(this)が必要
+                ["catch"](function (error) {
+                  //バックエンドからエラーが返却された場合に行う処理について
+                  console.log("error");
+                }.bind(this))["finally"](function () {}.bind(this));
+
+              case 2:
+                res = _context.sent;
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getLike(_x) {
+        return _getLike.apply(this, arguments);
+      }
+
+      return getLike;
+    }(),
+    CheckActiveLike: function () {
+      var _CheckActiveLike = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(id, article_id) {
+        var queries, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                queries = {
+                  id: id,
+                  article_id: article_id
+                };
+                _context2.next = 3;
+                return axios.get('/api/like/user/' + id + '/' + article_id).then(function (response) {
+                  this.ActiveFlg = response.data;
+                  console.log(this.ActiveFlg);
+                }.bind(this)) //Promise処理を行う場合は.bind(this)が必要
+                ["catch"](function (error) {
+                  //バックエンドからエラーが返却された場合に行う処理について
+                  console.log("error");
+                }.bind(this))["finally"](function () {}.bind(this));
+
+              case 3:
+                res = _context2.sent;
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function CheckActiveLike(_x2, _x3) {
+        return _CheckActiveLike.apply(this, arguments);
+      }
+
+      return CheckActiveLike;
+    }(),
+    UpdateLike: function () {
+      var _UpdateLike = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(id, article_id) {
+        var config, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                config = {
+                  headers: {
+                    'content-type': 'multipart/form-data'
+                  }
+                };
+                config.headers['X-HTTP-Method-Override'] = 'PUT';
+                _context3.next = 4;
+                return axios.put('/api/like/update/' + id + '/' + article_id).then(function (response) {
+                  this.ActiveFlg = response.data.ActiveFlg;
+
+                  if (this.ActiveFlg == true) {
+                    this.LikeCnt = this.LikeCnt + 1;
+                  } else {
+                    this.LikeCnt = this.LikeCnt - 1;
+                  }
+                }.bind(this)) //Promise処理を行う場合は.bind(this)が必要
+                ["catch"](function (error) {
+                  //バックエンドからエラーが返却された場合に行う処理について
+                  console.log("error");
+                }.bind(this))["finally"](function () {}.bind(this));
+
+              case 4:
+                res = _context3.sent;
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function UpdateLike(_x4, _x5) {
+        return _UpdateLike.apply(this, arguments);
+      }
+
+      return UpdateLike;
+    }()
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Header.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Header.vue?vue&type=script&lang=js& ***!
@@ -6307,6 +6488,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Side__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Side */ "./resources/js/components/Side.vue");
 /* harmony import */ var _SubHeader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../SubHeader */ "./resources/js/components/SubHeader.vue");
 /* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Footer */ "./resources/js/components/Footer.vue");
+/* harmony import */ var _GetLikeCnt_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../GetLikeCnt.vue */ "./resources/js/components/GetLikeCnt.vue");
 //
 //
 //
@@ -6361,6 +6543,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -6372,6 +6556,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Comment: _comment_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     CommentForm: _comment_form_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    GetLikeCnt: _GetLikeCnt_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
     Header: _Header__WEBPACK_IMPORTED_MODULE_2__["default"],
     Side: _Side__WEBPACK_IMPORTED_MODULE_3__["default"],
     SubHeader: _SubHeader__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -7296,9 +7481,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
- //Vue.prototype.$env = 'local';
 
-vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$env = 'production';
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$env = 'local'; //Vue.prototype.$env = 'production';
+
 var app = new vue__WEBPACK_IMPORTED_MODULE_3__["default"]({
   el: '#app',
   store: _store_js__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -30834,6 +31019,45 @@ component.options.__file = "resources/js/components/Footer.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/GetLikeCnt.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/GetLikeCnt.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _GetLikeCnt_vue_vue_type_template_id_11f5ce72___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GetLikeCnt.vue?vue&type=template&id=11f5ce72& */ "./resources/js/components/GetLikeCnt.vue?vue&type=template&id=11f5ce72&");
+/* harmony import */ var _GetLikeCnt_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GetLikeCnt.vue?vue&type=script&lang=js& */ "./resources/js/components/GetLikeCnt.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _GetLikeCnt_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _GetLikeCnt_vue_vue_type_template_id_11f5ce72___WEBPACK_IMPORTED_MODULE_0__.render,
+  _GetLikeCnt_vue_vue_type_template_id_11f5ce72___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/GetLikeCnt.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Header.vue":
 /*!********************************************!*\
   !*** ./resources/js/components/Header.vue ***!
@@ -31412,6 +31636,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/GetLikeCnt.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/GetLikeCnt.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GetLikeCnt_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GetLikeCnt.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GetLikeCnt.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GetLikeCnt_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Header.vue?vue&type=script&lang=js&":
 /*!*********************************************************************!*\
   !*** ./resources/js/components/Header.vue?vue&type=script&lang=js& ***!
@@ -31666,6 +31906,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Footer_vue_vue_type_template_id_61a7c374___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Footer_vue_vue_type_template_id_61a7c374___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Footer.vue?vue&type=template&id=61a7c374& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Footer.vue?vue&type=template&id=61a7c374&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/GetLikeCnt.vue?vue&type=template&id=11f5ce72&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/GetLikeCnt.vue?vue&type=template&id=11f5ce72& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GetLikeCnt_vue_vue_type_template_id_11f5ce72___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GetLikeCnt_vue_vue_type_template_id_11f5ce72___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GetLikeCnt_vue_vue_type_template_id_11f5ce72___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GetLikeCnt.vue?vue&type=template&id=11f5ce72& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GetLikeCnt.vue?vue&type=template&id=11f5ce72&");
 
 
 /***/ }),
@@ -31963,6 +32220,52 @@ var staticRenderFns = [
     ])
   },
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GetLikeCnt.vue?vue&type=template&id=11f5ce72&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GetLikeCnt.vue?vue&type=template&id=11f5ce72& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("p", { staticClass: "like" }, [
+    _c(
+      "button",
+      {
+        staticClass: "like_btn",
+        class: [_vm.ActiveFlg == true ? "active" : ""],
+        attrs: { type: "submit" },
+        on: {
+          click: function ($event) {
+            return _vm.UpdateLike(_vm.id, _vm.article_id)
+          },
+        },
+      },
+      [
+        _c("i", {
+          staticClass: "fa fa-thumbs-up",
+          attrs: { "aria-hidden": "true" },
+        }),
+        _vm._v(" " + _vm._s(_vm.LikeCnt)),
+      ]
+    ),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -33303,6 +33606,10 @@ var render = function () {
                           ? _c("p", {}, [_vm._v(_vm._s(_vm.articles.content))])
                           : _vm._e(),
                       ]),
+                      _vm._v(" "),
+                      _c("GetLikeCnt", {
+                        attrs: { article_id: _vm.article_id, id: _vm.id },
+                      }),
                       _vm._v(" "),
                       _vm.comments
                         ? _c("section", { staticClass: "comment" }, [

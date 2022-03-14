@@ -20,7 +20,8 @@
                     <p v-if="articles.content" class="">{{articles.content}}</p>
                   </figcaption>
                 </figure>
-
+                <GetLikeCnt :article_id="article_id" :id="id" />
+                
                 <section class="comment" v-if="comments">
                   <div v-if="comments.length > 0">
                     <h2 class="ttl">コメント {{comments.length}}件</h2>
@@ -59,12 +60,14 @@ import Header from '../Header'
 import Side from '../Side'
 import SubHeader from '../SubHeader'
 import Footer from '../Footer'
+import GetLikeCnt from "../GetLikeCnt.vue";
 
 export default {
   name: 'ArticleDetail',
   components: {
     Comment,
     CommentForm,
+    GetLikeCnt,
     Header,
     Side,
     SubHeader,

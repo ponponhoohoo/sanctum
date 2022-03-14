@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\ResetPasswordController;
@@ -41,6 +42,10 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::get('/category', [CategoryController::class, 'index']);
+//Like
+Route::get('/like/{article_id}',[LikeController::class, 'findby_article']);
+Route::get('/like/user/{id}/{article_id}',[LikeController::class, 'findby_article_user']);
+Route::put('/like/update/{id}/{article_id}',[LikeController::class, 'update']);
 
 Route::prefix('article')->group(function () {
     Route::get('/',[ArticleController::class, 'index']);

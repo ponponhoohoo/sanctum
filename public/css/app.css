@@ -76,6 +76,39 @@ hr {
   border: 0;
 }
 
+.like {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 0px;
+}
+.like .like_btn {
+  width: 180px;
+  display: block;
+  padding: 10px 0px 10px 0px;
+  line-height: 1;
+  box-sizing: border-box;
+  text-decoration: none;
+  transition: 0.5s all;
+  position: relative;
+  text-align: center;
+  font-size: 700;
+  font-size: 114%;
+  border: 1px solid #CD5C5C;
+  background: #FFF;
+  color: #CD5C5C;
+  display: block;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.like .like_btn:hover {
+  opacity: 0.7;
+}
+.like .active {
+  background: #CD5C5C;
+  color: #FFF;
+}
+
 /* form elements */
 input, textarea, select, button {
   font-family: "Hiragino Kaku Gothic Pro", sans-serif;
