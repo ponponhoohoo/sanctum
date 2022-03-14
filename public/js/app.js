@@ -7481,9 +7481,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+ //Vue.prototype.$env = 'local';
 
-vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$env = 'local'; //Vue.prototype.$env = 'production';
-
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$env = 'production';
 var app = new vue__WEBPACK_IMPORTED_MODULE_3__["default"]({
   el: '#app',
   store: _store_js__WEBPACK_IMPORTED_MODULE_2__["default"],
