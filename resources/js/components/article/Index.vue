@@ -45,6 +45,7 @@
                 <button @click="SearchArticles()" class="btn">検索</button>
               </div>
 
+
               <ul class="add_new_item">
                 <li><h2 class="ttl">すべての投稿</h2></li>
                 <li><router-link to="/article/input" class="add_btn">新規投稿</router-link></li>
