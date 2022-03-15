@@ -20,7 +20,7 @@
                     </label>
                   </li>
                 </ul>
-                <!-- <ul>
+                <ul>
                   <li>
                     <label>
                       <input type="radio" v-model="search.order" value="old" class="radio"><span>投稿の古い順</span>
@@ -41,7 +41,7 @@
                       <input type="radio" v-model="search.order" value="like" class="radio"><span>いいね!の多い投稿順</span>
                     </label>
                   </li>
-                </ul> -->
+                </ul>
                 <button @click="SearchArticles()" class="btn">検索</button>
               </div>
 
