@@ -5806,6 +5806,34 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5908,7 +5936,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       env: this.$env,
       search: {
         content: "",
-        category: ""
+        order: "",
+        category: []
       },
       articles: [],
       categories: {},
@@ -5956,8 +5985,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         formData.append('content', this.search.content);
       }
 
+      if (this.search.order != "") {
+        formData.append('order', this.search.order);
+      }
+
       if (this.search.category != "") {
         formData.append('category', this.search.category);
+        this.search.category.map(function (value) {
+          formData.append('category' + '[]', value);
+        });
+      }
+
+      var _iterator = _createForOfIteratorHelper(formData.entries()),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var value = _step.value;
+          console.log(value);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
       }
 
       axios.post("/api/article/search", formData).then(function (response) {
@@ -5970,7 +6020,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getCategory: function getCategory() {
       var _this2 = this;
 
-      axios.get("/api/category/").then(function (response) {
+      axios.get("/api/category").then(function (response) {
         _this2.categories = response.data;
       })["catch"](function (err) {
         _this2.message = err;
@@ -5986,7 +6036,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 2;
                 return axios.get('/api/article').then(function (response) {
                   this.articles = response.data;
-                  console.log(this.articles);
                 }.bind(this)) //Promise処理を行う場合は.bind(this)が必要
                 ["catch"](function (error) {
                   //バックエンドからエラーが返却された場合に行う処理について
@@ -6212,7 +6261,7 @@ __webpack_require__.r(__webpack_exports__);
     getCategory: function getCategory() {
       var _this2 = this;
 
-      axios.get("/api/category/").then(function (response) {
+      axios.get("/api/category").then(function (response) {
         _this2.categories = response.data;
       })["catch"](function (err) {
         _this2.message = err;
@@ -6837,7 +6886,7 @@ __webpack_require__.r(__webpack_exports__);
     getCategory: function getCategory() {
       var _this3 = this;
 
-      axios.get("/api/category/").then(function (response) {
+      axios.get("/api/category").then(function (response) {
         _this3.categories = response.data;
       })["catch"](function (err) {
         _this3.message = err;
@@ -32756,21 +32805,42 @@ var render = function () {
                                   },
                                 ],
                                 staticClass: "radio",
-                                attrs: { type: "radio" },
+                                attrs: { type: "checkbox" },
                                 domProps: {
                                   value: category.id,
-                                  checked: _vm._q(
-                                    _vm.search.category,
-                                    category.id
-                                  ),
+                                  checked: Array.isArray(_vm.search.category)
+                                    ? _vm._i(_vm.search.category, category.id) >
+                                      -1
+                                    : _vm.search.category,
                                 },
                                 on: {
                                   change: function ($event) {
-                                    return _vm.$set(
-                                      _vm.search,
-                                      "category",
-                                      category.id
-                                    )
+                                    var $$a = _vm.search.category,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = category.id,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.search,
+                                            "category",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.search,
+                                            "category",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.search, "category", $$c)
+                                    }
                                   },
                                 },
                               }),
@@ -32779,6 +32849,116 @@ var render = function () {
                           }),
                           0
                         ),
+                      ]),
+                      _vm._v(" "),
+                      _c("ul", [
+                        _c("li", [
+                          _c("label", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.search.order,
+                                  expression: "search.order",
+                                },
+                              ],
+                              staticClass: "radio",
+                              attrs: { type: "radio", value: "old" },
+                              domProps: {
+                                checked: _vm._q(_vm.search.order, "old"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(_vm.search, "order", "old")
+                                },
+                              },
+                            }),
+                            _c("span", [_vm._v("投稿の古い順")]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("label", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.search.order,
+                                  expression: "search.order",
+                                },
+                              ],
+                              staticClass: "radio",
+                              attrs: { type: "radio", value: "new" },
+                              domProps: {
+                                checked: _vm._q(_vm.search.order, "new"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(_vm.search, "order", "new")
+                                },
+                              },
+                            }),
+                            _c("span", [_vm._v("投稿の新しい順")]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("label", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.search.order,
+                                  expression: "search.order",
+                                },
+                              ],
+                              staticClass: "radio",
+                              attrs: { type: "radio", value: "comment" },
+                              domProps: {
+                                checked: _vm._q(_vm.search.order, "comment"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.search,
+                                    "order",
+                                    "comment"
+                                  )
+                                },
+                              },
+                            }),
+                            _c("span", [_vm._v("コメントの多い投稿順")]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("label", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.search.order,
+                                  expression: "search.order",
+                                },
+                              ],
+                              staticClass: "radio",
+                              attrs: { type: "radio", value: "like" },
+                              domProps: {
+                                checked: _vm._q(_vm.search.order, "like"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(_vm.search, "order", "like")
+                                },
+                              },
+                            }),
+                            _c("span", [_vm._v("いいね!の多い投稿順")]),
+                          ]),
+                        ]),
                       ]),
                       _vm._v(" "),
                       _c(

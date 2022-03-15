@@ -168,7 +168,7 @@ export default {
         },
         getCategory() {
             axios
-            .get("/api/category/")
+            .get("/api/category")
             .then(response => {
                 this.categories = response.data;
             })

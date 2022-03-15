@@ -31,19 +31,33 @@ class ArticleController extends Controller
 
         $message = null;
 
-        $article = Article::query()->orderBy('created_at', 'desc');
-
+        if ($request->order == "old") {
+            $article = Article::query()->orderBy('created_at', 'asc');
+        } elseif($request->order == "new") {
+            $article = Article::query()->orderBy('created_at', 'desc');
+        } elseif($request->order == "comment") {
+            $article = Article::query()->withCount('comment')->orderBy('comment_count', 'desc');
+        } elseif($request->order == "like") {
+            $article = Article::query()->withCount('like')->orderBy('like_count', 'desc');
+        } else {
+            $article = Article::query()->orderBy('created_at', 'desc');
+        }
+        
     //    $query->where('emergency','=', $request->emergency);
         if(isset($request->content)){
-            $article->Where('content','like', "%".$request->content."%");
+            $where = 'where';
+            $article->orWhere('content','like', "%".$request->content."%");
          //   ->Where('category', '=', 1)
+        } else {
+            $where = 'orWhere';
         }
         if(isset($request->category)){
-            $article->Where('category','=', $request->category);
-         //   ->Where('category', '=', 1)
+            foreach ($request->category as $value){
+                $article->$where('category','=', $value);
+            }
         }
 
-        $data = $article->with('comment','comment.user:id,name','user:id,name','category','image')->get();
+        $data = $article->with('comment','comment.user:id,name','user:id,name','category','image','like')->get();
       
         return response()->json(['post' => $data, 'status' =>  $this->status, 'message' => '検索に成功しました。']);
     }

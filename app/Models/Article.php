@@ -36,4 +36,9 @@ class Article extends Model
     public function image(){
         return $this->hasOne('App\Models\Image');
     }
+
+    public function like()
+    {
+        return $this->hasMany('App\Models\like','article_id','id');
+    }
 }

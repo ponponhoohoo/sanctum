@@ -16,7 +16,29 @@
                   <li><input v-model="search.content" type="text" class="form-control"></li>
                   <li>
                     <label v-for="category in this.categories">
-                      <input type="radio" v-model="search.category" v-bind:value="category.id" class="radio"><span>{{ category.name }}</span>
+                      <input type="checkbox" v-model="search.category" v-bind:value="category.id" class="radio"><span>{{ category.name }}</span>
+                    </label>
+                  </li>
+                </ul>
+                <ul>
+                  <li>
+                    <label>
+                      <input type="radio" v-model="search.order" value="old" class="radio"><span>投稿の古い順</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input type="radio" v-model="search.order" value="new" class="radio"><span>投稿の新しい順</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input type="radio" v-model="search.order" value="comment" class="radio"><span>コメントの多い投稿順</span>
+                    </label>
+                  </li>
+                   <li>
+                    <label>
+                      <input type="radio" v-model="search.order" value="like" class="radio"><span>いいね!の多い投稿順</span>
                     </label>
                   </li>
                 </ul>
@@ -102,7 +124,8 @@ export default {
        env: this.$env, 
        search: {
           content: "",
-          category: "",
+          order: "",
+          category: [],
         },
         articles:[],
         categories: {},
@@ -149,10 +172,18 @@ export default {
         if (this.search.content != "") {
           formData.append('content',this.search.content);
         }
+        if (this.search.order != "") {
+          formData.append('order',this.search.order);
+        }
         if (this.search.category != "") {
           formData.append('category',this.search.category);
+          this.search.category.map(function( value ) {
+            formData.append('category' + '[]', value); 
+          });
         }
-        
+        for (let value of formData.entries()) { 
+            console.log(value); 
+        }
         axios
         .post("/api/article/search",formData)
         .then(response => {
@@ -167,7 +198,7 @@ export default {
       },
       getCategory() {
           axios
-          .get("/api/category/")
+          .get("/api/category")
           .then(response => {
               this.categories = response.data;
           })
@@ -179,7 +210,7 @@ export default {
         const res = await axios.get('/api/article')
         .then(function(response){
             this.articles = response.data;
-            console.log(this.articles);
+            
         }.bind(this))  //Promise処理を行う場合は.bind(this)が必要
         .catch(function(error){  //バックエンドからエラーが返却された場合に行う処理について
             console.log("error");
