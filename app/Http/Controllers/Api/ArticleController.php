@@ -43,6 +43,7 @@ class ArticleController extends Controller
             $article = Article::query()->orderBy('created_at', 'desc');
         }
         
+        
     //    $query->where('emergency','=', $request->emergency);
         if(isset($request->content)){
             $where = 'where';
