@@ -45,13 +45,14 @@ class ArticleController extends Controller
         
         
     //    $query->where('emergency','=', $request->emergency);
-        if(isset($request->content)){
-            $where = 'where';
-            $article->orWhere('content','like', "%".$request->content."%");
-         //   ->Where('category', '=', 1)
-        } else {
-            $where = 'orWhere';
-        }
+        // if(isset($request->content)){
+        //     $where = 'where';
+        //     $article->orWhere('content','like', "%".$request->content."%");
+        //  //   ->Where('category', '=', 1)
+        // } else {
+        //     $where = 'orWhere';
+        // }
+        $where = 'orWhere';
         if(isset($request->category)){
             foreach ($request->category as $value){
                 $article->$where('category','=', $value);
