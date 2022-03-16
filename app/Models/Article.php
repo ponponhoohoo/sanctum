@@ -39,6 +39,6 @@ class Article extends Model
 
     public function like()
     {
-        return $this->hasMany('App\Models\like','article_id','id');
+        return $this->hasMany('App\Models\Like','article_id','id');
     }
 }
