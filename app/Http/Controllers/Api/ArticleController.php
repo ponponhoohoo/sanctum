@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Article;
 use App\Models\Image;
+use App\Models\Category;
+use App\Models\Like;
+use App\Models\Comment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -45,14 +48,14 @@ class ArticleController extends Controller
         
         
     //    $query->where('emergency','=', $request->emergency);
-        // if(isset($request->content)){
-        //     $where = 'where';
-        //     $article->orWhere('content','like', "%".$request->content."%");
-        //  //   ->Where('category', '=', 1)
-        // } else {
-        //     $where = 'orWhere';
-        // }
-        $where = 'orWhere';
+        if(isset($request->content)){
+            $where = 'where';
+            $article->orWhere('content','like', "%".$request->content."%");
+         //   ->Where('category', '=', 1)
+        } else {
+            $where = 'orWhere';
+        }
+        
         if(isset($request->category)){
             foreach ($request->category as $value){
                 $article->$where('category','=', $value);

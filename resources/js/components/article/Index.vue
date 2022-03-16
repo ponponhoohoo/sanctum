@@ -177,7 +177,7 @@ export default {
           formData.append('order',this.search.order);
         }
         if (this.search.category != "") {
-          formData.append('category',this.search.category);
+         // formData.append('category',this.search.category);
           this.search.category.map(function( value ) {
             formData.append('category' + '[]', value); 
           });
