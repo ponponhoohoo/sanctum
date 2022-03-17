@@ -272,9 +272,20 @@ class ArticleController extends Controller
             $Article = Article::with('image')->find($id);
 
             if (!empty($Article->image->path)) {
-                if (Storage::exists('public/upload/'. $Article->image->path)) {
-                    Storage::disk('public')->delete('upload/' . $Article->image->path);
-                 }
+                if (app()->isLocal()) {
+                    if (Storage::exists('public/upload/'. $Article->image->path)) {
+                        Storage::disk('public')->delete('upload/' . $Article->image->path);
+                    }
+                }
+                if (app()->isProduction()) {
+                    //前の画像を削除
+                    $PreFileName = $Article->image->path;
+                    if ($PreFileName != "" && !empty($PreFileName)) {
+                        $S3DelFile = basename($PreFileName);
+                        $disk = Storage::disk('s3');
+                        $disk->delete('upload/' . $S3DelFile);
+                    }
+                }
             }
            
             Article::destroy($id);

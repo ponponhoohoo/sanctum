@@ -9,10 +9,12 @@ import Login from './components/login.vue'
 import PostIndex from './components/post/Index.vue'
 import ArticleIndex from './components/article/Index.vue'
 import ArticleInput from './components/article/Input.vue'
+import User from './components/article/user.vue'
 import ArticleDetail from './components/article/detail.vue'
 import ArticleEdit from './components/article/edit.vue'
 import PasswordResetForm from './components/auth/reset.vue'
 import PasswordReset from './components/auth/Index.vue'
+import Thanks from './components/auth/thanks.vue'
 import store from './store.js'
 
 // VueRouterプラグインを使用する
@@ -40,6 +42,16 @@ const routes = [
     path: '/login',
     component: Login,
     meta: {requiresAuth: false},
+  },
+  {
+    path: '/thanks',
+    component: Thanks,
+    meta: {requiresAuth: false},
+  },
+  {
+    path: '/user/',
+    component: User,
+    meta: {requiresAuth: true},
   },
   {
     path: '/post/',

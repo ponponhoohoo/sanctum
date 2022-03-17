@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
@@ -32,6 +33,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:sanctum')->delete('/user', function (Request $request) {
+    return $request->user()->delete();
+});
+
 Route::get('/mail', [MailSendController::class, 'sendmail']);
 
 // ユーザー登録
@@ -46,6 +51,10 @@ Route::get('/category', [CategoryController::class, 'index']);
 Route::get('/like/{article_id}',[LikeController::class, 'findby_article']);
 Route::get('/like/user/{id}/{article_id}',[LikeController::class, 'findby_article_user']);
 Route::put('/like/update/{id}/{article_id}',[LikeController::class, 'update']);
+
+Route::prefix('image')->group(function () {
+    Route::delete('del/{user_id}',[ImageController::class, 'DeleteByUser']);
+});
 
 Route::prefix('article')->group(function () {
     Route::get('/',[ArticleController::class, 'index']);

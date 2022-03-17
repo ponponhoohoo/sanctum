@@ -9,6 +9,7 @@
       <ul class="menu">
         <li><router-link to="/article/">記事一覧</router-link></li>
         <li><router-link to="/article/input">新規記事投稿</router-link></li>
+        <li><router-link to="/user">ユーザー情報</router-link></li>
         <li><a href="" v-if="this.$store.state.user.auth" v-on:click.prevent="logout()">ログアウト</a></li>
       </ul>
     </nav>

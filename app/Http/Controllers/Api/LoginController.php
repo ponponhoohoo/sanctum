@@ -28,7 +28,7 @@ class LoginController extends Controller
 
             $user->tokens()->delete();
             $token = $user->createToken("login:user{$user->id}")->plainTextToken;
-
+      //      dd($token);
             return response()->json(['token' => $token,'user' => $user ], Response::HTTP_OK);
         }
 
