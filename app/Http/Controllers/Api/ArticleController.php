@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\Category;
 use App\Models\Like;
 use App\Models\Comment;
+use App\Models\Tag;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -23,6 +24,9 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    
+
     public function index()
     {
 
@@ -128,6 +132,15 @@ class ArticleController extends Controller
             $post->image_id = $new->id;
             $post->saveOrFail();
 
+            if(isset($request->tag)){
+                foreach ($request->tag as $value){
+                    $tag = new Tag();
+                    $tag->article_id = $new_article->id;
+                    $tag->tag_id = $value;
+                    $tag->saveOrFail();
+                }
+            }
+
             // 全ての保存処理が成功したので処理を確定する
             \DB::commit();
 
@@ -156,7 +169,7 @@ class ArticleController extends Controller
         // $Article = Article::where('id', $id)->with('comment','comment.user:id,name','user:id,name','category','image')->get();
         // $Article = $Article->sortBy('comment.created_at')->values();;
         // return $Article;
-        return Article::with('comment','comment.user:id,name','user:id,name','category','image')->find($id);
+        return Article::with('comment','comment.user:id,name','user:id,name','category','image','tags')->find($id);
     }
 
     /**
@@ -233,6 +246,18 @@ class ArticleController extends Controller
             $article->category = $data['category'];
 
             $article->save();
+
+            if(isset($request->tag)){
+                Tag::where('article_id', $id)->delete();
+                foreach ($request->tag as $value){
+                    if (Tag::where('article_id', '=', $id)->where('tag_id', '=', $value)->doesntExist()) {
+                        $tag = new Tag();
+                    $tag->article_id = $id;
+                    $tag->tag_id = $value;
+                    $tag->saveOrFail();
+                    }
+                }
+            }
 
             // 全ての保存処理が成功したので処理を確定する
             \DB::commit();

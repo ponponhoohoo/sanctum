@@ -9,6 +9,9 @@ use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\TagController;
+use App\Http\Controllers\Api\TagnameController;
+//Auth
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\ResetPasswordController;
 
@@ -45,8 +48,18 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 //ログアウト
 Route::get('/logout', [LoginController::class, 'logout']);
-
+//カテゴリ
 Route::get('/category', [CategoryController::class, 'index']);
+//タグ
+Route::prefix('tag')->group(function () {
+    Route::get('/article/{article_id}', [TagController::class, 'showby_article_with_tagname']);
+    Route::get('/{article_id}', [TagController::class, 'showby_article']);
+    Route::get('/', [TagnameController::class, 'index']);
+    Route::post('store',[TagnameController::class, 'store']);
+    Route::delete('tagname/{tag_id}',[TagnameController::class, 'destroy']);
+    Route::get('tagname/{tag_id}',[TagnameController::class, 'show']);
+});
+
 //Like
 Route::get('/like/{article_id}',[LikeController::class, 'findby_article']);
 Route::get('/like/user/{id}/{article_id}',[LikeController::class, 'findby_article_user']);
@@ -58,6 +71,7 @@ Route::prefix('image')->group(function () {
 
 Route::prefix('article')->group(function () {
     Route::get('/',[ArticleController::class, 'index']);
+    Route::get('tag/{id}',[TagController::class, 'showby_tag_with_tagname']);
     Route::post('search',[ArticleController::class, 'search']);
     Route::get('/{id}',[ArticleController::class, 'show']);
     Route::put('update/{id}',[ArticleController::class, 'update']);

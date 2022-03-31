@@ -24,6 +24,17 @@ class Article extends Model
         return $this->hasMany('App\Models\Comment','article_id','id');
     }
 
+    public function tags()
+    {
+        return $this->hasMany('App\Models\Tag','article_id','id');
+    }
+
+    public function tag()
+    {
+        //参考元 https://mintaku-blog.net/laravel-hasmanythrough/
+        return $this->hasManyThrough('App\Models\Tagname', 'App\Models\Tag',  'article_id', 'id', null, 'tag_id');
+    }
+
     public function user() {
         return $this->belongsTo('App\Models\User');
     }

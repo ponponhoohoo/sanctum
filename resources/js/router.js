@@ -7,11 +7,13 @@ import Footer from './components/Footer.vue'
 import Signup from './components/Signup.vue'
 import Login from './components/login.vue'
 import PostIndex from './components/post/Index.vue'
+import TagIndex from './components/article/tag_index.vue'
 import ArticleIndex from './components/article/Index.vue'
 import ArticleInput from './components/article/Input.vue'
 import User from './components/article/user.vue'
 import ArticleDetail from './components/article/detail.vue'
 import ArticleEdit from './components/article/edit.vue'
+import Tag from './components/article/tag.vue'
 import PasswordResetForm from './components/auth/reset.vue'
 import PasswordReset from './components/auth/Index.vue'
 import Thanks from './components/auth/thanks.vue'
@@ -54,6 +56,11 @@ const routes = [
     meta: {requiresAuth: true},
   },
   {
+    path: '/tag/',
+    component: Tag,
+    meta: {requiresAuth: true},
+  },
+  {
     path: '/post/',
     component: PostIndex,
     meta: {requiresAuth: true},
@@ -61,6 +68,12 @@ const routes = [
   {
     path: '/article/',
     component: ArticleIndex,
+    meta: {requiresAuth: true},
+  },
+  {
+    path: '/article/tag/:id',
+    name: 'TagIndex',
+    component: TagIndex,
     meta: {requiresAuth: true},
   },
   {

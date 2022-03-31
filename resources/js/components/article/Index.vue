@@ -51,6 +51,8 @@
                 <li><router-link to="/article/input" class="add_btn">新規投稿</router-link></li>
               </ul>
 
+              <Spinner v-if="loading == true"/>
+
               <ul class="list">
                 <li class="list_item" v-for="item in getItems">
                   <figure v-if = "item.image !== null" class="responsive-image">
@@ -110,6 +112,7 @@ import Header from '../Header'
 import Side from '../Side'
 import SubHeader from '../SubHeader'
 import Footer from '../Footer'
+import Spinner from 'vue-simple-spinner'
 
 export default {
   name: 'ArticleIndex',
@@ -118,6 +121,7 @@ export default {
     Header,
     Side,
     SubHeader,
+    Spinner,
     Footer
   },
   data() {
@@ -128,10 +132,11 @@ export default {
           order: "",
           category: [],
         },
+        loading: true,
         articles:[],
         categories: {},
         currentPage: 1,
-        perPage: 10,
+        perPage: 9,
       }
   },
   mounted() {
@@ -168,6 +173,7 @@ export default {
         this.currentPage = Number(pageNum);
       },
       SearchArticles() {
+        this.loading = true;
         let formData = new FormData();
         
         if (this.search.content != "") {
@@ -182,14 +188,15 @@ export default {
             formData.append('category' + '[]', value); 
           });
         }
-        for (let value of formData.entries()) { 
-            console.log(value); 
-        }
+        // for (let value of formData.entries()) { 
+        //     console.log(value); 
+        // }
         axios
         .post("/api/article/search",formData)
         .then(response => {
+          this.loading = false;
           this.articles = response.data.post;
-          console.log(this.articles);
+        //  console.log(this.articles);
         })
         .catch(err => {
             this.message = err;
@@ -210,6 +217,7 @@ export default {
       get_articles: async function(){
         const res = await axios.get('/api/article')
         .then(function(response){
+            this.loading = false;
             this.articles = response.data;
             
         }.bind(this))  //Promise処理を行う場合は.bind(this)が必要

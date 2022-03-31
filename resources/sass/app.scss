@@ -76,6 +76,32 @@ elements reset
     margin: 0;
     border: 0; }
 
+  .tag__list {
+    width:100%;
+    ul {
+      width:100%;
+      display: grid;
+	    grid-template-columns: repeat(6, 1fr);
+      column-gap: 10px;
+      row-gap: 10px;
+      margin-bottom: 20px;
+      li {
+        button {
+          color: #3a4651;
+        }
+        span {
+          border-radius: 5px;
+          background: #e3dfc8;
+          padding:10px;
+          text-align: center;
+          display: inline-block;
+          width: 85%;
+          font-size: 80%;
+        }
+      }
+    }
+  }
+
   .like {
     width:100%;
     display: flex;
@@ -279,6 +305,30 @@ elements reset
   
   .radio, .checkbox {
     display: none;
+  }
+
+  .tag {
+    margin-bottom:15px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      padding-left:18px;
+      margin-bottom:2px;
+      position:relative;
+      text-align:left;
+      line-height:1.6;
+      margin-right: 10px;
+      &:before {
+        content:"#";
+        position:absolute;
+        left:0px;
+        top:0px;
+      }
+      &:last-child {
+        margin-right:0px;
+      }
+    }
   }
   
   .content .sidebar {
@@ -757,8 +807,8 @@ elements reset
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
   
-  footer .copy {
-    padding: 10px 0px;
+  .copy {
+    padding: 30px 0px;
     text-align: center;
   }
   
@@ -845,6 +895,7 @@ elements reset
       transition: 0.3192s cubic-bezier(0.04, 0.04, 0.12, 0.96) 0.1008s;
       transform: scale(1, 0);
       transform-origin: top;
+      z-index: 5;
     }
   
     /* Hamburger menu button */
@@ -964,6 +1015,16 @@ elements reset
     }
   }
   @media screen and (max-width: 764px) {
+    .tag__list {
+      width:100%;
+      ul {
+        width:100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 10px;
+        row-gap: 10px;
+      }
+    }
     .content .main .container .detail .comment {
       width: 100%;
     }
@@ -995,6 +1056,16 @@ elements reset
     }
   }
   @media screen and (max-width: 640px) {
+    .tag__list {
+      width:100%;
+      ul {
+        width:100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 10px;
+        row-gap: 10px;
+      }
+    }
     .content .main .container {
       width: 100%;
       padding: 20px;

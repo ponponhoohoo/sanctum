@@ -20,6 +20,8 @@
                     <p v-if="articles.content" class="">{{articles.content}}</p>
                   </figcaption>
                 </figure>
+
+                <Tags :article_id="article_id" />
                 <GetLikeCnt :article_id="article_id" :id="id" />
                 
                 <section class="comment" v-if="comments">
@@ -54,6 +56,7 @@
 </template>
 
 <script>
+import Tags from './tag_list.vue'
 import Comment from './comment.vue'
 import CommentForm from './comment_form.vue'
 import Header from '../Header'
@@ -65,6 +68,7 @@ import GetLikeCnt from "../GetLikeCnt.vue";
 export default {
   name: 'ArticleDetail',
   components: {
+    Tags,
     Comment,
     CommentForm,
     GetLikeCnt,
@@ -107,7 +111,7 @@ export default {
           .get("/api/comment/" + article_id)
           .then(response => {
               this.comments = response.data;
-              console.log("コメント:" . this.comment);
+       //       console.log("コメント:" . this.comment);
           })
           .catch(err => {
               this.message = err;

@@ -34,7 +34,7 @@ export default {
           .get("/api/comment/" + article_id)
           .then(response => {
               this.comments = response.data;
-              console.log(this.comment);
+          //    console.log(this.comment);
           })
           .catch(err => {
               this.message = err;

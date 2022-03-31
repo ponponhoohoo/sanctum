@@ -108,7 +108,7 @@ export default {
             Object.keys(response.errors).forEach((key) => {
               this.errors[key] = true;
               this.messages[key] = response.errors[key];
-              console.log(response.errors[key]);
+      //        console.log(response.errors[key]);
             })
           } else {
             this.error_flg = false;

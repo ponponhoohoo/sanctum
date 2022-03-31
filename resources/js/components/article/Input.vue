@@ -11,7 +11,7 @@
         
             <div class="container">
               <div class="search">
-                <h2 class="ttl">検索</h2>
+                <h2 class="ttl">投稿</h2>
                 <div class="form">
                   <table>
                     <tr>
@@ -28,6 +28,14 @@
                           <input type="radio" v-model="forms.category" v-bind:value="item.id" class="radio"><span>{{ item.name }}</span>
                         </label>
                         <p v-if="this.errors.category == true" class="error-txt">{{this.messages.category}}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>タグ (複数選択可)</th>
+                      <td>
+                        <label v-for="tag in this.tags">
+                          <input type="checkbox" v-model="forms.tag" v-bind:value="tag.id" class="radio"><span>{{ tag.name }}</span>
+                        </label>
                       </td>
                     </tr>
                     <tr>
@@ -99,6 +107,7 @@ export default {
         content:"",
         category:"",
         categories: {},
+        tags: [], 
         path:"",
         comp_flg:false,
         error_flg:false,
@@ -119,6 +128,7 @@ export default {
         forms: {
           title: "",
           content: "",
+          tag: [],
           category: "",
           path:"",
         },
@@ -130,17 +140,16 @@ export default {
       },
   },
     created: function() {
+        this.getTags();
         this.getCategory();
     },
     methods: {
-        test: function() {
-            this.title = "inoue"
-            return this.title
-        },
         dataReset() {
-          this.forms.title = null;
-          this.forms.content = null;
-          this.forms.path = null;
+          this.forms.title = "";
+          this.forms.content = "";
+          this.forms.category = "";
+          this.forms.tag = [];
+          this.forms.path = "";
         },
         fileSelect: function(e) {
             //選択したファイルの情報を取得しプロパティにいれる
@@ -165,6 +174,17 @@ export default {
           this.$nextTick(function () {
             this.view = true
           })
+        },
+        getTags() {
+            axios
+            .get("/api/tag")
+            .then(response => {
+                this.loading = false;
+                this.tags = response.data;
+            })
+            .catch(err => {
+                this.message = err;
+            });
         },
         getCategory() {
             axios
@@ -192,7 +212,12 @@ export default {
         formData.append('content',this.forms.content);
         formData.append('category',this.forms.category);
         formData.append('path',this.path);
-//console.log(...formData.entries());
+        if (this.forms.tag != "") {
+          this.forms.tag.map(function( value ) {
+            formData.append('tag' + '[]', value); 
+          });
+        }
+console.log(...formData.entries());
         let config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -203,7 +228,9 @@ export default {
         axios.post('/api/article/store', formData,config)
         .then((res) => {
           let response = res.data;
-          console.log(response)
+          console.log(response);
+          this.dataReset();
+          this.remove();
           //console.log(response);
           if (response.status == 400) {
             // バリデーションエラー
@@ -212,9 +239,6 @@ export default {
               this.errors[key] = true;
               this.messages[key] = response.errors[key];
               console.log(response.errors[key]);
-              // Object.keys(key).forEach(function (mes) {
-              //   console.log(mes);
-              // });
             })
           } else {
             this.error_flg = false;
@@ -225,6 +249,8 @@ export default {
             clearError(category);
             clearError(path);
             
+            
+
             console.log(this.messages)
             // 成功したらUserItemコンポーネントを表示
           //  this.$router.push('/user/item');
